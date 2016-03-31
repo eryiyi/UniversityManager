@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangxunwang.unimanager.dao.CollegeDao">
+    <resultMap id="my_college" type="com.liangxunwang.unimanager.model.College">
+        <id column="coid" property="coid"/>
+        <result column="name" property="name"/>
+        <result column="provinceid" property="provinceID"/>
+        <result column="groupId" property="groupId"/>
+    </resultMap>
+
+    <select id="list" resultMap="my_college">
+        SELECT * from college WHERE 1=1
+        <if test="provinceId != null and provinceId != ''">
+            AND provinceid=#{provinceId}
+        </if>
+        <if test="keyWords !=null and keyWords !=''">
+            AND name like '%'||#{keyWords}||'%'
+        </if>
+    </select>
+
+    <update id="updateGroupId" parameterType="String">
+        update college set groupid=#{groupId} where coid=#{coid}
+    </update>
+    <select id="getGroupId" parameterType="String" resultMap="my_college">
+        SELECT * from college where coid=#{coid}
+    </select>
+
+</mapper>

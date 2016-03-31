@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liangxunwang.unimanager.dao.AdminDao">
+    <resultMap id="my_admin" type="com.liangxunwang.unimanager.model.Admin">
+        <id column="manager_id" property="id"/>
+        <result column="manager_admin" property="username"/>
+        <result column="manager_pass" property="password"/>
+        <result column="is_use" property="isUse"/>
+    </resultMap>
+
+    <select id="findByUsername" resultMap="my_admin" parameterType="String">
+        SELECT * from lx_manager WHERE manager_admin=#{username}
+    </select>
+
+</mapper>
