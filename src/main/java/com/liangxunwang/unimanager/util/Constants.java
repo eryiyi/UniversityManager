@@ -5,7 +5,7 @@ package com.liangxunwang.unimanager.util;
  */
 public class Constants {
 //    public static final String URL = "http://61.156.40.154:7777/";
-    public static final String URL = "http://192.168.1.14:8080/";
+    public static final String URL = "http://192.168.1.109:8080/";
     public static final String FFMPEG = "D:/ffmpeg/ffmpeg.exe";
 
     public static final String API_KEY = "3aGjhyGfpiAdYkpO0Y8wvtBQ";

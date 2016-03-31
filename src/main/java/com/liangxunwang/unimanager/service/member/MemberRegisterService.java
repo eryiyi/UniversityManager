@@ -84,11 +84,10 @@ public class MemberRegisterService implements SaveService, ExecuteService {
         }catch (Exception e){
             throw new ServiceException(Constants.SAVE_ERROR);
         }
-        smsDao.update(member.getEmpMobile());
         Boolean suc=ChatUtils.register(member.getHxUsername(),member.getEmpPass());
         if(suc) {
-            College college=collegeDao.getGroupId(member.getSchoolId());
-            GroupUtils.addGroup(college.getGroupId(), member.getDateline() + member.getEmpMobile());
+//            College college=collegeDao.getGroupId(member.getSchoolId());
+//            GroupUtils.addGroup(college.getGroupId(), member.getDateline() + member.getEmpMobile());
         }else {
             throw new ServiceException(Constants.HX_ERROR);
         }

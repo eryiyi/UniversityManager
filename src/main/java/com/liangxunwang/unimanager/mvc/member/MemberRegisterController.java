@@ -40,14 +40,6 @@ public class MemberRegisterController extends ControllerConstants {
     private ExecuteService memberExeService;
 
     @Autowired
-    @Qualifier("smsMessageService")
-    private SaveService smsMessageService;
-
-    @Autowired
-    @Qualifier("smsMessageService")
-    private ExecuteService smsMessageExeService;
-
-    @Autowired
     @Qualifier("provinceService")
     private ListService provinceListService;
 
@@ -99,55 +91,6 @@ public class MemberRegisterController extends ControllerConstants {
         return toJSONString(SUCCESS);
     }
 
-    /**
-     * 校验验证码的正确性
-     * @param phoneNumber
-     * @param code
-     * @return
-     */
-    @RequestMapping("/checkCode")
-    @ResponseBody
-    public String checkCode(@RequestParam(value = "phoneNumber")String phoneNumber, @RequestParam(value = "code") String code){
-        Object[] params = new Object[]{phoneNumber, code};
-
-        try {
-            smsMessageExeService.execute(params);
-        }catch (ServiceException e){
-            String msg = e.getMessage();
-            if (msg.equals(Constants.CODE_NOT_EQUAL)){
-                return toJSONString(ERROR_1);//验证码不匹配
-            }
-            if (msg.equals(Constants.PHONE_ERROR)){
-                return toJSONString(ERROR_2);//该手机没有获得验证码
-            }
-        }
-        return toJSONString(SUCCESS);
-    }
-
-    /**
-     * 获取验证码
-     * @param phoneNumber
-     * @return
-     */
-    @RequestMapping("/getRegisterCode")
-    @ResponseBody
-    public String getCode(String phoneNumber){
-        try {
-           smsMessageService.save(phoneNumber);
-        }catch (ServiceException e){
-            String msg = e.getMessage();
-            if (msg.equals(Constants.HAS_EXISTS)){
-                return toJSONString(ERROR_3);//手机号已注册
-            }
-            if (msg.equals(Constants.HAS_CODE)){
-                return toJSONString(ERROR_1);//验证码已发送到手机
-            }
-            if (msg.equals(Constants.SEND_SMS_ERROR)){
-                return toJSONString(ERROR_2);//发送失败
-            }
-        }
-        return toJSONString(SUCCESS);
-    }
 
     /**
      * 获得所有的省份
